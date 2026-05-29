@@ -11,7 +11,7 @@
   :root {
     --green: #1D9E75;
     --blue: #378ADD;
-    --amber: #BA7517;
+    --amber: #E07B1A;
     --red: #E24B4A;
     --bg: #F5F5F0;
     --card: #FFFFFF;
@@ -37,20 +37,17 @@
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: calc(80px + var(--safe-bot)); }
 
-  /* Header */
   .header { background: var(--card); border-bottom: 0.5px solid var(--border); padding: calc(var(--safe-top) + 14px) 16px 14px; position: sticky; top: 0; z-index: 10; }
   .header-row { display: flex; align-items: center; justify-content: space-between; }
   .header h1 { font-size: 20px; font-weight: 600; }
   .date-label { font-size: 13px; color: var(--text2); margin-top: 2px; }
   .reset-btn { font-size: 13px; color: var(--blue); background: none; border: none; cursor: pointer; padding: 4px 0; }
 
-  /* Day toggle */
   .toggle-wrap { padding: 12px 16px 0; }
   .day-toggle { display: flex; background: var(--card); border-radius: var(--radius-sm); padding: 3px; border: 0.5px solid var(--border); }
   .day-btn { flex: 1; padding: 8px; font-size: 13px; font-weight: 500; border: none; border-radius: 7px; background: transparent; color: var(--text2); cursor: pointer; transition: all 0.2s; }
   .day-btn.active { background: var(--blue); color: #fff; }
 
-  /* Macro rings */
   .macros-section { padding: 12px 16px; }
   .macros-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .macro-card { background: var(--card); border-radius: var(--radius); padding: 14px; border: 0.5px solid var(--border); }
@@ -60,10 +57,12 @@
   .macro-main { font-size: 26px; font-weight: 600; line-height: 1; }
   .macro-target { font-size: 12px; color: var(--text3); margin-top: 2px; }
   .bar-wrap { height: 5px; background: var(--border); border-radius: 3px; margin-top: 10px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
-  .over { color: var(--red) !important; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease, background 0.4s ease; }
 
-  /* Add food */
+  .over-red { color: var(--red) !important; }
+  .over-green { color: var(--green) !important; }
+  .over-amber { color: var(--amber) !important; }
+
   .add-section { padding: 0 16px 12px; }
   .section-title { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
   .add-card { background: var(--card); border-radius: var(--radius); padding: 14px; border: 0.5px solid var(--border); }
@@ -71,20 +70,19 @@
   .field-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
   .field-input { width: 100%; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 15px; color: var(--text); outline: none; }
   .field-input:focus { border-color: var(--blue); }
-  .macros-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
-  .macros-inputs .field-label { font-size: 10px; }
-  .macros-inputs .field-input { padding: 8px; font-size: 14px; text-align: center; }
+  .macros-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+  .macros-inputs-2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .macros-inputs .field-label, .macros-inputs-2 .field-label { font-size: 10px; }
+  .macros-inputs .field-input, .macros-inputs-2 .field-input { padding: 8px; font-size: 14px; text-align: center; }
   .add-food-btn { width: 100%; padding: 13px; background: var(--blue); color: #fff; font-size: 15px; font-weight: 600; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: opacity 0.15s; }
   .add-food-btn:active { opacity: 0.8; }
 
-  /* Quick add presets */
   .presets-section { padding: 0 16px 12px; }
   .presets-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .presets-scroll::-webkit-scrollbar { display: none; }
   .preset-pill { flex-shrink: 0; background: var(--card); border: 0.5px solid var(--border); border-radius: 20px; padding: 7px 14px; font-size: 12px; font-weight: 500; color: var(--text); cursor: pointer; white-space: nowrap; transition: all 0.15s; }
   .preset-pill:active { background: var(--blue); color: #fff; border-color: var(--blue); }
 
-  /* Log */
   .log-section { padding: 0 16px; }
   .log-card { background: var(--card); border-radius: var(--radius); border: 0.5px solid var(--border); overflow: hidden; }
   .log-item { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 0.5px solid var(--border); }
@@ -97,11 +95,10 @@
   .del-btn svg { width: 14px; height: 14px; stroke: var(--red); fill: none; stroke-width: 2; stroke-linecap: round; }
   .empty-state { padding: 32px 16px; text-align: center; color: var(--text3); font-size: 14px; }
 
-  /* Bottom summary bar */
   .summary-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 0.5px solid var(--border); padding: 10px 16px calc(10px + var(--safe-bot)); display: flex; justify-content: space-around; z-index: 10; }
   .sum-item { text-align: center; }
-  .sum-val { font-size: 15px; font-weight: 600; }
-  .sum-label { font-size: 10px; color: var(--text3); margin-top: 1px; }
+  .sum-val { font-size: 13px; font-weight: 600; }
+  .sum-label { font-size: 9px; color: var(--text3); margin-top: 1px; }
 </style>
 </head>
 <body>
@@ -126,40 +123,36 @@
 <div class="macros-section">
   <div class="macros-grid">
     <div class="macro-card">
-      <div class="macro-top">
-        <span class="macro-name">Calories</span>
-        <span class="macro-remaining" id="rem-kcal"></span>
-      </div>
+      <div class="macro-top"><span class="macro-name">Calories</span><span class="macro-remaining" id="rem-kcal"></span></div>
       <div class="macro-main" id="disp-kcal">0</div>
       <div class="macro-target" id="tgt-kcal">/ 2525 kcal</div>
       <div class="bar-wrap"><div class="bar-fill" id="bar-kcal" style="background:var(--blue);width:0%"></div></div>
     </div>
     <div class="macro-card">
-      <div class="macro-top">
-        <span class="macro-name">Protéines</span>
-        <span class="macro-remaining" id="rem-prot"></span>
-      </div>
+      <div class="macro-top"><span class="macro-name">Protéines</span><span class="macro-remaining" id="rem-prot"></span></div>
       <div class="macro-main" id="disp-prot">0g</div>
       <div class="macro-target" id="tgt-prot">/ 156g</div>
       <div class="bar-wrap"><div class="bar-fill" id="bar-prot" style="background:var(--green);width:0%"></div></div>
     </div>
     <div class="macro-card">
-      <div class="macro-top">
-        <span class="macro-name">Glucides</span>
-        <span class="macro-remaining" id="rem-gluc"></span>
-      </div>
+      <div class="macro-top"><span class="macro-name">Glucides</span><span class="macro-remaining" id="rem-gluc"></span></div>
       <div class="macro-main" id="disp-gluc">0g</div>
       <div class="macro-target" id="tgt-gluc">/ 290g</div>
       <div class="bar-wrap"><div class="bar-fill" id="bar-gluc" style="background:var(--blue);width:0%"></div></div>
     </div>
     <div class="macro-card">
-      <div class="macro-top">
-        <span class="macro-name">Lipides</span>
-        <span class="macro-remaining" id="rem-lip"></span>
-      </div>
+      <div class="macro-top"><span class="macro-name">Lipides</span><span class="macro-remaining" id="rem-lip"></span></div>
       <div class="macro-main" id="disp-lip">0g</div>
       <div class="macro-target" id="tgt-lip">/ 82g</div>
       <div class="bar-wrap"><div class="bar-fill" id="bar-lip" style="background:var(--amber);width:0%"></div></div>
+    </div>
+    <div class="macro-card" style="grid-column: span 2;">
+      <div class="macro-top"><span class="macro-name">Fibres</span><span class="macro-remaining" id="rem-fibr"></span></div>
+      <div style="display:flex;align-items:baseline;gap:8px;">
+        <div class="macro-main" id="disp-fibr">0g</div>
+        <div class="macro-target" id="tgt-fibr">/ 25g</div>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill" id="bar-fibr" style="background:var(--green);width:0%"></div></div>
     </div>
   </div>
 </div>
@@ -177,24 +170,15 @@
       <input class="field-input" type="text" id="inp-name" placeholder="ex: Poulet grillé 150g" autocomplete="off" autocorrect="off">
     </div>
     <div class="macros-inputs">
-      <div>
-        <div class="field-label">Kcal</div>
-        <input class="field-input" type="number" id="inp-kcal" placeholder="0" min="0" inputmode="decimal">
-      </div>
-      <div>
-        <div class="field-label">Prot. (g)</div>
-        <input class="field-input" type="number" id="inp-prot" placeholder="0" min="0" inputmode="decimal">
-      </div>
-      <div>
-        <div class="field-label">Gluc. (g)</div>
-        <input class="field-input" type="number" id="inp-gluc" placeholder="0" min="0" inputmode="decimal">
-      </div>
-      <div>
-        <div class="field-label">Lip. (g)</div>
-        <input class="field-input" type="number" id="inp-lip" placeholder="0" min="0" inputmode="decimal">
-      </div>
+      <div><div class="field-label">Kcal</div><input class="field-input" type="number" id="inp-kcal" placeholder="0" min="0" inputmode="decimal"></div>
+      <div><div class="field-label">Prot. (g)</div><input class="field-input" type="number" id="inp-prot" placeholder="0" min="0" inputmode="decimal"></div>
+      <div><div class="field-label">Gluc. (g)</div><input class="field-input" type="number" id="inp-gluc" placeholder="0" min="0" inputmode="decimal"></div>
     </div>
-    <button class="add-food-btn" onclick="addFood()">+ Ajouter</button>
+    <div class="macros-inputs-2">
+      <div><div class="field-label">Lip. (g)</div><input class="field-input" type="number" id="inp-lip" placeholder="0" min="0" inputmode="decimal"></div>
+      <div><div class="field-label">Fibres (g)</div><input class="field-input" type="number" id="inp-fibr" placeholder="0" min="0" inputmode="decimal"></div>
+      <div style="display:flex;align-items:flex-end;"><button class="add-food-btn" onclick="addFood()">+ Ajouter</button></div>
+    </div>
   </div>
 </div>
 
@@ -206,37 +190,47 @@
 </div>
 
 <div class="summary-bar">
-  <div class="sum-item"><div class="sum-val" id="sum-kcal">0</div><div class="sum-label">kcal restantes</div></div>
-  <div class="sum-item"><div class="sum-val" id="sum-prot">0g</div><div class="sum-label">protéines restantes</div></div>
-  <div class="sum-item"><div class="sum-val" id="sum-gluc">0g</div><div class="sum-label">glucides restants</div></div>
-  <div class="sum-item"><div class="sum-val" id="sum-lip">0g</div><div class="sum-label">lipides restants</div></div>
+  <div class="sum-item"><div class="sum-val" id="sum-kcal">0</div><div class="sum-label">kcal rest.</div></div>
+  <div class="sum-item"><div class="sum-val" id="sum-prot">0g</div><div class="sum-label">prot. rest.</div></div>
+  <div class="sum-item"><div class="sum-val" id="sum-gluc">0g</div><div class="sum-label">gluc. rest.</div></div>
+  <div class="sum-item"><div class="sum-val" id="sum-lip">0g</div><div class="sum-label">lip. rest.</div></div>
+  <div class="sum-item"><div class="sum-val" id="sum-fibr">0g</div><div class="sum-label">fibres rest.</div></div>
 </div>
 
 <script>
 const TARGETS = {
-  sport: { kcal: 2315, prot: 160, gluc: 250, lip: 75 },
-  repos: { kcal: 2215, prot: 160, gluc: 225, lip: 75 }
+  sport: { kcal: 2315, prot: 160, gluc: 250, lip: 75, fibr: 25 },
+  repos: { kcal: 2215, prot: 160, gluc: 225, lip: 75, fibr: 25 }
 };
 
-const PRESETS = [
-  { name: 'Blanc de poulet 150g', kcal: 165, prot: 31, gluc: 0, lip: 3 },
-  { name: 'Oeuf entier', kcal: 78, prot: 6, gluc: 0, lip: 5 },
-  { name: 'Blanc d\'oeuf', kcal: 17, prot: 4, gluc: 0, lip: 0 },
-  { name: 'Riz cuit 100g', kcal: 130, prot: 3, gluc: 28, lip: 0 },
-  { name: 'Flocons d\'avoine 50g', kcal: 190, prot: 6, gluc: 32, lip: 4 },
-  { name: 'Skyr 150g', kcal: 90, prot: 15, gluc: 5, lip: 0 },
-  { name: 'Thon en boîte 120g', kcal: 116, prot: 26, gluc: 0, lip: 1 },
-  { name: 'Saumon 150g', kcal: 280, prot: 32, gluc: 0, lip: 16 },
-  { name: 'Fromage blanc 0%', kcal: 48, prot: 8, gluc: 4, lip: 0 },
-  { name: 'Patate douce 200g', kcal: 172, prot: 3, gluc: 40, lip: 0 },
-  { name: 'Brocoli 200g', kcal: 68, prot: 6, gluc: 10, lip: 0 },
-  { name: 'Amandes 30g', kcal: 174, prot: 5, gluc: 5, lip: 15 },
-  { name: 'Whey 30g', kcal: 120, prot: 24, gluc: 3, lip: 2 },
-  { name: 'Lentilles cuites 150g', kcal: 174, prot: 13, gluc: 27, lip: 1 },
-  { name: 'Pain complet 1 tranche', kcal: 80, prot: 4, gluc: 14, lip: 1 },
+// overColor: 'red' = mauvais, 'green' = bon, 'amber' = neutre/attention
+const FIELD_CONFIG = [
+  { k: 'kcal', unit: '',  barColor: 'var(--blue)',  overColor: 'red'   },
+  { k: 'prot', unit: 'g', barColor: 'var(--green)', overColor: 'green' },
+  { k: 'gluc', unit: 'g', barColor: 'var(--blue)',  overColor: 'amber' },
+  { k: 'lip',  unit: 'g', barColor: 'var(--amber)', overColor: 'amber' },
+  { k: 'fibr', unit: 'g', barColor: 'var(--green)', overColor: 'green' },
 ];
 
-const STORAGE_KEY = 'macrotracker_v1';
+const PRESETS = [
+  { name: 'Blanc de poulet 150g', kcal: 165, prot: 31, gluc: 0,  lip: 3,  fibr: 0 },
+  { name: 'Oeuf entier',          kcal: 78,  prot: 6,  gluc: 0,  lip: 5,  fibr: 0 },
+  { name: "Blanc d'oeuf",         kcal: 17,  prot: 4,  gluc: 0,  lip: 0,  fibr: 0 },
+  { name: 'Riz cuit 100g',        kcal: 130, prot: 3,  gluc: 28, lip: 0,  fibr: 0 },
+  { name: "Flocons d'avoine 50g", kcal: 190, prot: 6,  gluc: 32, lip: 4,  fibr: 5 },
+  { name: 'Skyr 150g',            kcal: 90,  prot: 15, gluc: 5,  lip: 0,  fibr: 0 },
+  { name: 'Thon en boîte 120g',   kcal: 116, prot: 26, gluc: 0,  lip: 1,  fibr: 0 },
+  { name: 'Saumon 150g',          kcal: 280, prot: 32, gluc: 0,  lip: 16, fibr: 0 },
+  { name: 'Fromage blanc 0%',     kcal: 48,  prot: 8,  gluc: 4,  lip: 0,  fibr: 0 },
+  { name: 'Patate douce 200g',    kcal: 172, prot: 3,  gluc: 40, lip: 0,  fibr: 5 },
+  { name: 'Brocoli 200g',         kcal: 68,  prot: 6,  gluc: 10, lip: 0,  fibr: 5 },
+  { name: 'Amandes 30g',          kcal: 174, prot: 5,  gluc: 5,  lip: 15, fibr: 2 },
+  { name: 'Whey 30g',             kcal: 120, prot: 24, gluc: 3,  lip: 2,  fibr: 0 },
+  { name: 'Lentilles cuites 150g',kcal: 174, prot: 13, gluc: 27, lip: 1,  fibr: 7 },
+  { name: 'Pain complet 1 tranche',kcal: 80, prot: 4,  gluc: 14, lip: 1,  fibr: 2 },
+];
+
+const STORAGE_KEY = 'macrotracker_v2';
 let day = 'sport';
 let foods = [];
 
@@ -282,13 +276,10 @@ function addFood(preset) {
       kcal: parseFloat(document.getElementById('inp-kcal').value) || 0,
       prot: parseFloat(document.getElementById('inp-prot').value) || 0,
       gluc: parseFloat(document.getElementById('inp-gluc').value) || 0,
-      lip: parseFloat(document.getElementById('inp-lip').value) || 0,
+      lip:  parseFloat(document.getElementById('inp-lip').value)  || 0,
+      fibr: parseFloat(document.getElementById('inp-fibr').value) || 0,
     };
-    document.getElementById('inp-name').value = '';
-    document.getElementById('inp-kcal').value = '';
-    document.getElementById('inp-prot').value = '';
-    document.getElementById('inp-gluc').value = '';
-    document.getElementById('inp-lip').value = '';
+    ['inp-name','inp-kcal','inp-prot','inp-gluc','inp-lip','inp-fibr'].forEach(id => document.getElementById(id).value = '');
   }
   foods.push(food);
   saveData();
@@ -303,11 +294,7 @@ function removeFood(id) {
 
 function clearDay() {
   if (!foods.length) return;
-  if (confirm('Réinitialiser le journal du jour ?')) {
-    foods = [];
-    saveData();
-    render();
-  }
+  if (confirm('Réinitialiser le journal du jour ?')) { foods = []; saveData(); render(); }
 }
 
 function fmt(n) { return Math.round(n); }
@@ -319,39 +306,55 @@ function render() {
     kcal: a.kcal + (f.kcal || 0),
     prot: a.prot + (f.prot || 0),
     gluc: a.gluc + (f.gluc || 0),
-    lip: a.lip + (f.lip || 0),
-  }), { kcal: 0, prot: 0, gluc: 0, lip: 0 });
+    lip:  a.lip  + (f.lip  || 0),
+    fibr: a.fibr + (f.fibr || 0),
+  }), { kcal: 0, prot: 0, gluc: 0, lip: 0, fibr: 0 });
 
-  const fields = [
-    { k: 'kcal', val: tot.kcal, tgt: t.kcal, unit: '', tgtLabel: '/ ' + t.kcal + ' kcal' },
-    { k: 'prot', val: tot.prot, tgt: t.prot, unit: 'g', tgtLabel: '/ ' + t.prot + 'g' },
-    { k: 'gluc', val: tot.gluc, tgt: t.gluc, unit: 'g', tgtLabel: '/ ' + t.gluc + 'g' },
-    { k: 'lip',  val: tot.lip,  tgt: t.lip,  unit: 'g', tgtLabel: '/ ' + t.lip + 'g' },
-  ];
+  FIELD_CONFIG.forEach(fc => {
+    const val = tot[fc.k];
+    const tgt = t[fc.k];
+    const rem = tgt - val;
+    const over = val > tgt;
 
-  fields.forEach(f => {
-    const rem = f.tgt - f.val;
-    const over = f.val > f.tgt;
-    const dispEl = document.getElementById('disp-' + f.k);
-    dispEl.textContent = fmt(f.val) + f.unit;
-    dispEl.className = 'macro-main' + (over ? ' over' : '');
-    document.getElementById('tgt-' + f.k).textContent = f.tgtLabel;
-    document.getElementById('bar-' + f.k).style.width = pct(f.val, f.tgt);
-    const remEl = document.getElementById('rem-' + f.k);
+    // tgt label
+    const tgtLabel = fc.k === 'kcal' ? '/ ' + tgt + ' kcal' : '/ ' + tgt + 'g';
+    const tgtEl = document.getElementById('tgt-' + fc.k);
+    if (tgtEl) tgtEl.textContent = tgtLabel;
+
+    // display value
+    const dispEl = document.getElementById('disp-' + fc.k);
+    dispEl.textContent = fmt(val) + fc.unit;
+    dispEl.className = 'macro-main' + (over ? ' over-' + fc.overColor : '');
+
+    // bar
+    const barEl = document.getElementById('bar-' + fc.k);
+    barEl.style.width = pct(val, tgt);
     if (over) {
-      remEl.textContent = '+' + fmt(f.val - f.tgt) + f.unit;
-      remEl.style.color = 'var(--red)';
+      barEl.style.background = fc.overColor === 'red' ? 'var(--red)' : fc.overColor === 'green' ? 'var(--green)' : 'var(--amber)';
     } else {
-      remEl.textContent = fmt(rem) + f.unit + ' restant' + (f.unit === '' ? 'es' : 's');
+      barEl.style.background = fc.barColor;
+    }
+
+    // remaining label
+    const remEl = document.getElementById('rem-' + fc.k);
+    if (over) {
+      remEl.textContent = '+' + fmt(val - tgt) + fc.unit;
+      remEl.style.color = fc.overColor === 'red' ? 'var(--red)' : fc.overColor === 'green' ? 'var(--green)' : 'var(--amber)';
+    } else {
+      remEl.textContent = fmt(rem) + fc.unit + ' restant' + (fc.unit === '' ? 'es' : 's');
       remEl.style.color = 'var(--text3)';
     }
-    const sumEl = document.getElementById('sum-' + f.k);
-    if (over) {
-      sumEl.textContent = '+' + fmt(f.val - f.tgt) + f.unit;
-      sumEl.style.color = 'var(--red)';
-    } else {
-      sumEl.textContent = fmt(rem) + f.unit;
-      sumEl.style.color = '';
+
+    // summary bar
+    const sumEl = document.getElementById('sum-' + fc.k);
+    if (sumEl) {
+      if (over) {
+        sumEl.textContent = '+' + fmt(val - tgt) + fc.unit;
+        sumEl.style.color = fc.overColor === 'red' ? 'var(--red)' : fc.overColor === 'green' ? 'var(--green)' : 'var(--amber)';
+      } else {
+        sumEl.textContent = fmt(rem) + fc.unit;
+        sumEl.style.color = '';
+      }
     }
   });
 
@@ -364,7 +367,7 @@ function render() {
     <div class="log-item">
       <div class="log-info">
         <div class="log-name">${f.name}</div>
-        <div class="log-macros">${fmt(f.prot)}g P · ${fmt(f.gluc)}g G · ${fmt(f.lip)}g L</div>
+        <div class="log-macros">${fmt(f.prot)}g P · ${fmt(f.gluc)}g G · ${fmt(f.lip)}g L · ${fmt(f.fibr||0)}g Fib</div>
       </div>
       <div class="log-kcal">${fmt(f.kcal)} kcal</div>
       <button class="del-btn" onclick="removeFood(${f.id})" aria-label="Supprimer">
@@ -376,17 +379,14 @@ function render() {
 
 function buildPresets() {
   const wrap = document.getElementById('presets-scroll');
-  wrap.innerHTML = PRESETS.map((p, i) => `
-    <button class="preset-pill" onclick='addPreset(${i})'>${p.name}</button>
-  `).join('');
+  wrap.innerHTML = PRESETS.map((p, i) => `<button class="preset-pill" onclick='addPreset(${i})'>${p.name}</button>`).join('');
 }
 
 function addPreset(i) { addFood(PRESETS[i]); }
 
 function setDateLabel() {
   const d = new Date();
-  const opts = { weekday: 'long', day: 'numeric', month: 'long' };
-  document.getElementById('date-label').textContent = d.toLocaleDateString('fr-FR', opts);
+  document.getElementById('date-label').textContent = d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
 }
 
 loadData();
@@ -400,7 +400,8 @@ document.getElementById('inp-name').addEventListener('keydown', e => { if (e.key
 document.getElementById('inp-kcal').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-prot').focus(); });
 document.getElementById('inp-prot').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-gluc').focus(); });
 document.getElementById('inp-gluc').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-lip').focus(); });
-document.getElementById('inp-lip').addEventListener('keydown', e => { if (e.key === 'Enter') addFood(); });
+document.getElementById('inp-lip').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-fibr').focus(); });
+document.getElementById('inp-fibr').addEventListener('keydown', e => { if (e.key === 'Enter') addFood(); });
 </script>
 </body>
 </html>
