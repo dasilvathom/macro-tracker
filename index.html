@@ -179,7 +179,50 @@
     <div class="macros-inputs">
       <div>
         <div class="field-label">Kcal</div>
-< truncated lines 182-225 >
+        <input class="field-input" type="number" id="inp-kcal" placeholder="0" min="0" inputmode="decimal">
+      </div>
+      <div>
+        <div class="field-label">Prot. (g)</div>
+        <input class="field-input" type="number" id="inp-prot" placeholder="0" min="0" inputmode="decimal">
+      </div>
+      <div>
+        <div class="field-label">Gluc. (g)</div>
+        <input class="field-input" type="number" id="inp-gluc" placeholder="0" min="0" inputmode="decimal">
+      </div>
+      <div>
+        <div class="field-label">Lip. (g)</div>
+        <input class="field-input" type="number" id="inp-lip" placeholder="0" min="0" inputmode="decimal">
+      </div>
+    </div>
+    <button class="add-food-btn" onclick="addFood()">+ Ajouter</button>
+  </div>
+</div>
+
+<div class="log-section">
+  <div class="section-title">Journal du jour</div>
+  <div class="log-card" id="log-list">
+    <div class="empty-state">Aucun aliment ajouté</div>
+  </div>
+</div>
+
+<div class="summary-bar">
+  <div class="sum-item"><div class="sum-val" id="sum-kcal">0</div><div class="sum-label">kcal restantes</div></div>
+  <div class="sum-item"><div class="sum-val" id="sum-prot">0g</div><div class="sum-label">protéines restantes</div></div>
+  <div class="sum-item"><div class="sum-val" id="sum-gluc">0g</div><div class="sum-label">glucides restants</div></div>
+  <div class="sum-item"><div class="sum-val" id="sum-lip">0g</div><div class="sum-label">lipides restants</div></div>
+</div>
+
+<script>
+const TARGETS = {
+  sport: { kcal: 2315, prot: 160, gluc: 250, lip: 75 },
+  repos: { kcal: 2215, prot: 160, gluc: 225, lip: 75 }
+};
+
+const PRESETS = [
+  { name: 'Blanc de poulet 150g', kcal: 165, prot: 31, gluc: 0, lip: 3 },
+  { name: 'Oeuf entier', kcal: 78, prot: 6, gluc: 0, lip: 5 },
+  { name: 'Blanc d\'oeuf', kcal: 17, prot: 4, gluc: 0, lip: 0 },
+  { name: 'Riz cuit 100g', kcal: 130, prot: 3, gluc: 28, lip: 0 },
   { name: 'Flocons d\'avoine 50g', kcal: 190, prot: 6, gluc: 32, lip: 4 },
   { name: 'Skyr 150g', kcal: 90, prot: 15, gluc: 5, lip: 0 },
   { name: 'Thon en boîte 120g', kcal: 116, prot: 26, gluc: 0, lip: 1 },
