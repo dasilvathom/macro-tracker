@@ -170,13 +170,13 @@
       <input class="field-input" type="text" id="inp-name" placeholder="ex: Poulet grillé 150g" autocomplete="off" autocorrect="off">
     </div>
     <div class="macros-inputs">
-      <div><div class="field-label">Kcal</div><input class="field-input" type="number" id="inp-kcal" placeholder="0" min="0" inputmode="decimal"></div>
-      <div><div class="field-label">Prot. (g)</div><input class="field-input" type="number" id="inp-prot" placeholder="0" min="0" inputmode="decimal"></div>
-      <div><div class="field-label">Gluc. (g)</div><input class="field-input" type="number" id="inp-gluc" placeholder="0" min="0" inputmode="decimal"></div>
+      <div><div class="field-label">Kcal</div><input class="field-input" type="number" id="inp-kcal" placeholder="0" min="0" step="0.5" inputmode="decimal"></div>
+      <div><div class="field-label">Prot. (g)</div><input class="field-input" type="number" id="inp-prot" placeholder="0" min="0" step="0.5" inputmode="decimal"></div>
+      <div><div class="field-label">Gluc. (g)</div><input class="field-input" type="number" id="inp-gluc" placeholder="0" min="0" step="0.5" inputmode="decimal"></div>
     </div>
     <div class="macros-inputs-2">
-      <div><div class="field-label">Lip. (g)</div><input class="field-input" type="number" id="inp-lip" placeholder="0" min="0" inputmode="decimal"></div>
-      <div><div class="field-label">Fibres (g)</div><input class="field-input" type="number" id="inp-fibr" placeholder="0" min="0" inputmode="decimal"></div>
+      <div><div class="field-label">Lip. (g)</div><input class="field-input" type="number" id="inp-lip" placeholder="0" min="0" step="0.5" inputmode="decimal"></div>
+      <div><div class="field-label">Fibres (g)</div><input class="field-input" type="number" id="inp-fibr" placeholder="0" min="0" step="0.5" inputmode="decimal"></div>
       <div style="display:flex;align-items:flex-end;"><button class="add-food-btn" onclick="addFood()">+ Ajouter</button></div>
     </div>
   </div>
@@ -213,21 +213,8 @@ const FIELD_CONFIG = [
 ];
 
 const PRESETS = [
-  { name: 'Blanc de poulet 150g', kcal: 165, prot: 31, gluc: 0,  lip: 3,  fibr: 0 },
-  { name: 'Oeuf entier',          kcal: 78,  prot: 6,  gluc: 0,  lip: 5,  fibr: 0 },
-  { name: "Blanc d'oeuf",         kcal: 17,  prot: 4,  gluc: 0,  lip: 0,  fibr: 0 },
-  { name: 'Riz cuit 100g',        kcal: 130, prot: 3,  gluc: 28, lip: 0,  fibr: 0 },
-  { name: "Flocons d'avoine 50g", kcal: 190, prot: 6,  gluc: 32, lip: 4,  fibr: 5 },
-  { name: 'Skyr 150g',            kcal: 90,  prot: 15, gluc: 5,  lip: 0,  fibr: 0 },
-  { name: 'Thon en boîte 120g',   kcal: 116, prot: 26, gluc: 0,  lip: 1,  fibr: 0 },
-  { name: 'Saumon 150g',          kcal: 280, prot: 32, gluc: 0,  lip: 16, fibr: 0 },
-  { name: 'Fromage blanc 0%',     kcal: 48,  prot: 8,  gluc: 4,  lip: 0,  fibr: 0 },
-  { name: 'Patate douce 200g',    kcal: 172, prot: 3,  gluc: 40, lip: 0,  fibr: 5 },
-  { name: 'Brocoli 200g',         kcal: 68,  prot: 6,  gluc: 10, lip: 0,  fibr: 5 },
-  { name: 'Amandes 30g',          kcal: 174, prot: 5,  gluc: 5,  lip: 15, fibr: 2 },
-  { name: 'Whey 30g',             kcal: 120, prot: 24, gluc: 3,  lip: 2,  fibr: 0 },
-  { name: 'Lentilles cuites 150g',kcal: 174, prot: 13, gluc: 27, lip: 1,  fibr: 7 },
-  { name: 'Pain complet 1 tranche',kcal: 80, prot: 4,  gluc: 14, lip: 1,  fibr: 2 },
+  { name: 'Galette de riz',       kcal: 45, prot: 0.5, gluc: 7.5,  lip: 1,  fibr: 0 },
+  { name: 'Gouter classique',     kcal: 380,  prot: 38,  gluc: 39,  lip: 7,  fibr: 3 },
 ];
 
 const STORAGE_KEY = 'macrotracker_v2';
@@ -263,6 +250,10 @@ function setDay(d) {
   render();
 }
 
+function roundToHalf(n) {
+  return Math.round(n * 2) / 2;
+}
+
 function addFood(preset) {
   let food;
   if (preset) {
@@ -273,11 +264,11 @@ function addFood(preset) {
     food = {
       id: Date.now(),
       name,
-      kcal: parseFloat(document.getElementById('inp-kcal').value) || 0,
-      prot: parseFloat(document.getElementById('inp-prot').value) || 0,
-      gluc: parseFloat(document.getElementById('inp-gluc').value) || 0,
-      lip:  parseFloat(document.getElementById('inp-lip').value)  || 0,
-      fibr: parseFloat(document.getElementById('inp-fibr').value) || 0,
+      kcal: roundToHalf(parseFloat(document.getElementById('inp-kcal').value) || 0),
+      prot: roundToHalf(parseFloat(document.getElementById('inp-prot').value) || 0),
+      gluc: roundToHalf(parseFloat(document.getElementById('inp-gluc').value) || 0),
+      lip:  roundToHalf(parseFloat(document.getElementById('inp-lip').value) || 0),
+      fibr: roundToHalf(parseFloat(document.getElementById('inp-fibr').value) || 0),
     };
     ['inp-name','inp-kcal','inp-prot','inp-gluc','inp-lip','inp-fibr'].forEach(id => document.getElementById(id).value = '');
   }
@@ -297,7 +288,10 @@ function clearDay() {
   if (confirm('Réinitialiser le journal du jour ?')) { foods = []; saveData(); render(); }
 }
 
-function fmt(n) { return Math.round(n); }
+function fmt(n) {
+  return Number.isInteger(n) ? n : n.toFixed(1);
+}
+  
 function pct(v, t) { return Math.min(Math.round(v / t * 100), 100) + '%'; }
 
 function render() {
