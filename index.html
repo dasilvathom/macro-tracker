@@ -115,8 +115,10 @@
 
 <div class="toggle-wrap">
   <div class="day-toggle">
-    <button class="day-btn active" onclick="setDay('sport')" id="btn-sport">Jour de sport</button>
-    <button class="day-btn" onclick="setDay('repos')" id="btn-repos">Jour de repos</button>
+    <button class="day-btn active" onclick="setDay('diet_sport')" id="btn-diet-sport">Seche - sport</button>
+    <button class="day-btn" onclick="setDay('diet_repos')" id="btn-diet-repos">Seche -  repos</button>
+    <button class="day-btn" onclick="setDay('sport')" id="btn-sport">Sport</button>
+    <button class="day-btn" onclick="setDay('repos')" id="btn-repos">Repos</button>
   </div>
 </div>
 
@@ -199,6 +201,8 @@
 
 <script>
 const TARGETS = {
+  diet_sport: { kcal: 1900, prot: 150, gluc: 180, lip: 60, fibr: 25 },
+  diet_repos: { kcal: 1800, prot: 150, gluc: 130, lip: 60, fibr: 25 },
   sport: { kcal: 2315, prot: 160, gluc: 250, lip: 75, fibr: 25 },
   repos: { kcal: 2215, prot: 160, gluc: 225, lip: 75, fibr: 25 }
 };
@@ -213,8 +217,13 @@ const FIELD_CONFIG = [
 ];
 
 const PRESETS = [
+  { name: 'Shaker Peanut',       kcal: 170, prot: 30, gluc: 2,  lip: 2.5,  fibr: 5.5 },
+  { name: 'Gaufre',       kcal: 120, prot: 6.5, gluc: 11,  lip: 6.5,  fibr: 2 },
+  { name: 'Galette choco',       kcal: 90, prot: 1, gluc: 14,  lip: 3,  fibr: 0.5 },
   { name: 'Galette de riz',       kcal: 45, prot: 0.5, gluc: 7.5,  lip: 1,  fibr: 0 },
-  { name: 'Gouter classique',     kcal: 380,  prot: 38,  gluc: 39,  lip: 7,  fibr: 3 },
+  { name: 'Moelleux choco',       kcal: 100, prot: 1.5, gluc: 11,  lip: 5.5,  fibr: 2 },
+  { name: 'Barre',       kcal: 300, prot: 17, gluc: 39,  lip: 7,  fibr: 3 },
+  { name: 'Barre + Whey',     kcal: 380,  prot: 38,  gluc: 39,  lip: 7,  fibr: 3 },
 ];
 
 const STORAGE_KEY = 'macrotracker_v2';
@@ -246,6 +255,8 @@ function setDay(d) {
   day = d;
   document.getElementById('btn-sport').classList.toggle('active', d === 'sport');
   document.getElementById('btn-repos').classList.toggle('active', d === 'repos');
+  document.getElementById('btn-diet-sport').classList.toggle('active', d === 'diet_sport');
+  document.getElementById('btn-diet-repos').classList.toggle('active', d === 'diet_repos');
   saveData();
   render();
 }
@@ -387,7 +398,11 @@ loadData();
 buildPresets();
 setDateLabel();
 document.getElementById('btn-' + day).classList.add('active');
-document.getElementById('btn-' + (day === 'sport' ? 'repos' : 'sport')).classList.remove('active');
+['sport', 'repos', 'diet_sport', 'diet_repos'].forEach(value => {
+  if (value !== day) {
+    document.getElementById('btn-' + value).classList.remove('active');
+  }
+});
 render();
 
 document.getElementById('inp-name').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-kcal').focus(); });
