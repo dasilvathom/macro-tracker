@@ -411,6 +411,13 @@ document.getElementById('inp-prot').addEventListener('keydown', e => { if (e.key
 document.getElementById('inp-gluc').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-lip').focus(); });
 document.getElementById('inp-lip').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-fibr').focus(); });
 document.getElementById('inp-fibr').addEventListener('keydown', e => { if (e.key === 'Enter') addFood(); });
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') refresh();
+});
+window.addEventListener('pageshow', refresh);
+window.addEventListener('focus', refresh);
+
 </script>
 </body>
 </html>
