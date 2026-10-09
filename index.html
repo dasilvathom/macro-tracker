@@ -242,7 +242,7 @@ function loadData() {
     const data = JSON.parse(raw);
     const today = new Date().toDateString();
     if (data.date === today) {
-      day = data.day || 'sport';
+      day = data.day || 'diet_sport';
       foods = data.foods || [];
     } else {
       foods = [];
